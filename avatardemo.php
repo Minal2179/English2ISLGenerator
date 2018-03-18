@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<?php session_start();
+
+$myfile = fopen("out.txt", "r") or die("Unable to open file!");
+$ff="";
+while(!feof($myfile)) {
+  $ff=$ff.fgets($myfile);
+}
+#echo $ff;
+fclose($myfile);
+
+
+?>
 <html>
     <head>
     	<?php require_once("include.php"); ?>
@@ -18,12 +30,12 @@
 			var sigmlList = null;
 
             // global variable to tell if avatar is ready or not
-            var tuavatarLoaded = false;
+            var avatarLoaded = false;
 		</script>
     </head>
     <body onload="CWASA.init(initCfg);" style="margin-top:0!important;">
         <h1><center>
-            <b>Text to Sign Language Converter</b><hr>
+            <b>English Text to Sign Language Converter</b><hr>
         </center>
         </h1>
     <?php
@@ -42,10 +54,17 @@
 
 <div id="menu1">
 <br>
-<label for="inputText">Enter the text to animate</label><br>
-<textarea id="inputText" style="width:100%; height:80px;" autofocus></textarea><br><br>
-<button type="button" id="btnRun" class="btn btn-primary">Parse and Generate Play Sequence</button>
+<label for="inputText">The text to animate: <?php echo $ff;?></label><br>
+<!-- <textarea id="inputText" style="width:100%; height:80px;" autofocus></textarea><br><br> -->
+<button type="button" class="btn btn-primary" onclick="yahoo();" id="a">Parse and Generate Play Sequence</button>
 <button type="button" id="btnClear" class="btn btn-default">Clear</button>
+</div>
+<div id="dom-target" style="display: none;">
+    <?php 
+        //$output = "42"; //Again, do some operation, get the output.
+        echo htmlspecialchars($ff); /* You have to escape because the result
+                                           will not be valid HTML otherwise. */
+    ?>
 </div>
 
 <div id="menu2">
@@ -92,7 +111,7 @@ $("#btnClear").click(function() {
 
 // code to check if avatar has been loaded or not and hide the loading sign
 var loadingTout = setInterval(function() {
-    if(tuavatarLoaded) {
+    if(avatarLoaded) {
         $("#loading").hide();
         clearInterval(loadingTout);
         console.log("Avatar loaded successfully !");
