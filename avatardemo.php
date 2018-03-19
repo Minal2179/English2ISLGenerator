@@ -54,18 +54,19 @@ fclose($myfile);
 
 <div id="menu1">
 <br>
-<label for="inputText">The text to animate: <?php echo $ff;?></label><br>
-<!-- <textarea id="inputText" style="width:100%; height:80px;" autofocus></textarea><br><br> -->
-<button type="button" class="btn btn-primary" onclick="yahoo();" id="a">Parse and Generate Play Sequence</button>
+<label for="inputText">The text to animate: <!-- <?php echo $ff;?> --></label><br>
+<textarea id="inputText" style="width:100%; height:80px;" autofocus></textarea><br><br>
+<button type="button" class="btn btn-primary" id="btnRun">Parse and Generate Play Sequence</button>
+<!-- <button type="button" class="btn btn-primary" onclick="yahoo();" id="a">Parse and Generate Play Sequence</button> -->
 <button type="button" id="btnClear" class="btn btn-default">Clear</button>
 </div>
-<div id="dom-target" style="display: none;">
+<!-- <div id="dom-target" style="display: none;">
     <?php 
         //$output = "42"; //Again, do some operation, get the output.
         echo htmlspecialchars($ff); /* You have to escape because the result
                                            will not be valid HTML otherwise. */
     ?>
-</div>
+</div> -->
 
 <div id="menu2">
 <br>
