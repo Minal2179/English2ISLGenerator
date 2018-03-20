@@ -2,9 +2,12 @@
 if(isset($_POST['username']))
 {
 	$filename= $_POST['username'];
-	$pyscript = 'C:\\xampp\\htdocs\testing\\isl1.py';
-	$python='C:\\Users\\varda\\Miniconda3\\python.exe';
+	echo $filename;
+	$pyscript = 'video_convert.py';
+	$python='C:\Python27\python.exe';
 	$cmd = "$python $pyscript $filename";
+    $isl = exec("$cmd");
+	$cmd = "$python $pyscript $isl";
 	exec("$cmd");
 }
 ?>
@@ -48,6 +51,6 @@ if(isset($_POST['username']))
 	</br>
 	<form action="" method="post" name="myform" id="myform">
   <strong>Enter text:<strong>  <INPUT TYPE = "Text" NAME = "username" ><br>
-  <input type="submit" value="Animation" id="Animation" width="50" height="50">
-  <input type="submit" value="Video" id="Video" width="50" height="50">
+  <label for="inputText">The text to animate:  <?php echo $isl;?> </label><br>
+  <input type="submit" value="Generate Video" id="Video" width="50" height="50">
 	</form>

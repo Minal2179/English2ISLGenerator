@@ -1,13 +1,39 @@
 <!DOCTYPE html>
-<?php session_start();
+<?php
+/*
+Error reporting helps you understand what's wrong with your code, remove in production.
+*/
 
-$myfile = fopen("out.txt", "r") or die("Unable to open file!");
-$ff="";
-while(!feof($myfile)) {
-  $ff=$ff.fgets($myfile);
+if(isset($_POST['englishtext']))
+{
+    // print "Hey I am here";
+    $isl = "";
+    // $filename= $_POST['username'];
+    // $pyscript = 'C:\\xampp\\htdocs\testing\\isl1.py';
+    // $python='C:\\Users\\varda\\Miniconda3\\python.exe';
+    // $cmd = "$python $pyscript $filename";
+    // exec("$cmd");
+    $pyscript = 'convert2isl.py';
+    $python='C:\Python27\python.exe';
+    $englishinput = $_POST['englishtext'];
+    // echo $englishinput;
+
+    $cmd = "$python $pyscript $englishinput";
+    $isl = exec("$cmd");
+    // echo $isl;
+    // echo "Hey I am after exec";
 }
-#echo $ff;
-fclose($myfile);
+
+
+//  session_start();
+
+// $myfile = fopen("out.txt", "r") or die("Unable to open file!");
+// $ff="";
+// while(!feof($myfile)) {
+//   $ff=$ff.fgets($myfile);
+// }
+// #echo $ff;
+// fclose($myfile);
 
 
 ?>
@@ -30,7 +56,7 @@ fclose($myfile);
 			var sigmlList = null;
 
             // global variable to tell if avatar is ready or not
-            var avatarLoaded = false;
+            var tuavatarLoaded = false;
 		</script>
     </head>
     <body onload="CWASA.init(initCfg);" style="margin-top:0!important;">
@@ -54,19 +80,24 @@ fclose($myfile);
 
 <div id="menu1">
 <br>
-<label for="inputText">The text to animate: <!-- <?php echo $ff;?> --></label><br>
-<textarea id="inputText" style="width:100%; height:80px;" autofocus></textarea><br><br>
-<button type="button" class="btn btn-primary" id="btnRun">Parse and Generate Play Sequence</button>
-<!-- <button type="button" class="btn btn-primary" onclick="yahoo();" id="a">Parse and Generate Play Sequence</button> -->
+<form action="" method="post" name="myform" id="myform">
+<label for="inputText">Enter an english text: </label><br>
+<input type = "Text" name = "englishtext"><br>
+<input type="submit" value="Parse to ISL" id="parseisl" class="btn btn-primary" width="50" height="50">
+</form>
+<label for="inputText">The text to animate:  <?php echo $isl;?> </label><br>
+<!-- <textarea id="inputText" style="width:100%; height:80px;" autofocus></textarea><br><br> -->
+<!-- <button type="button" class="btn btn-primary" id="btnRun">Parse and Generate Play Sequence</button> -->
+<button type="button" class="btn btn-primary" onclick="yahoo();" id="a">Generate Play Sequence</button>
 <button type="button" id="btnClear" class="btn btn-default">Clear</button>
 </div>
-<!-- <div id="dom-target" style="display: none;">
+<div id="dom-target" style="display: none;">
     <?php 
         //$output = "42"; //Again, do some operation, get the output.
-        echo htmlspecialchars($ff); /* You have to escape because the result
+        echo htmlspecialchars($isl); /* You have to escape because the result
                                            will not be valid HTML otherwise. */
     ?>
-</div> -->
+</div>
 
 <div id="menu2">
 <br>
@@ -112,7 +143,7 @@ $("#btnClear").click(function() {
 
 // code to check if avatar has been loaded or not and hide the loading sign
 var loadingTout = setInterval(function() {
-    if(avatarLoaded) {
+    if(tuavatarLoaded) {
         $("#loading").hide();
         clearInterval(loadingTout);
         console.log("Avatar loaded successfully !");
