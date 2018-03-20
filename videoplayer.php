@@ -3,11 +3,12 @@ if(isset($_POST['username']))
 {
 	$filename= $_POST['username'];
 	echo $filename;
-	$pyscript = 'video_convert.py';
+	$pyscript_video = 'video_convert.py';
+	$pyscript_convert = 'convert2isl.py';
 	$python='C:\Python27\python.exe';
-	$cmd = "$python $pyscript $filename";
+	$cmd = "$python $pyscript_convert $filename";
     $isl = exec("$cmd");
-	$cmd = "$python $pyscript $isl";
+	$cmd = "$python $pyscript_video $isl";
 	exec("$cmd");
 }
 ?>
